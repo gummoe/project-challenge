@@ -1,5 +1,5 @@
 class DogsController < ApplicationController
-  before_action :set_dog, only: [:show, :edit, :update, :destroy]
+  before_action :set_dog, only: %i[show edit update destroy]
 
   # GET /dogs
   # GET /dogs.json
@@ -66,13 +66,15 @@ class DogsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dog
-      @dog = Dog.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def dog_params
-      params.require(:dog).permit(:name, :description, :images)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_dog
+    @dog = Dog.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def dog_params
+    params.require(:dog).permit(:name, :description, :images)
+  end
+
 end
