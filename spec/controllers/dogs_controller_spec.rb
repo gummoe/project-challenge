@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe DogsController, type: :controller do
+  let(:user) { FactoryBot.create(:user) }
+
+  before(:each) do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  end
+
   describe '#index' do
     it 'displays recent dogs' do
       2.times { create(:dog) }
