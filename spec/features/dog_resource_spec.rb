@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe 'Dog resource', type: :feature do
+  let(:user) { FactoryBot.create(:user) }
+
+  before(:each) do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  end
+
   it 'can create a profile' do
     visit new_dog_path
     fill_in 'Name', with: 'Speck'

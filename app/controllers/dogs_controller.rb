@@ -1,5 +1,6 @@
 class DogsController < ApplicationController
   before_action :set_dog, only: %i[show edit update destroy]
+  before_action :user_is_authorized, only: %i[edit update destroy]
 
   # GET /dogs
   # GET /dogs.json
@@ -76,6 +77,15 @@ class DogsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def dog_params
     params.require(:dog).permit(:name, :description, :images)
+  end
+
+  def user_is_authorized
+    if @dog.user != current_user
+      respond_to do |format|
+        format.html { redirect_to dogs_url, notice: 'You cannot edit that dog' }
+        format.json { head :no_content }
+      end
+    end
   end
 
 end
