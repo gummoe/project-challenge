@@ -1,2 +1,7 @@
-<%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
+<% @dogs.each_with_index do |dog, index| %>
+  <%= render partial: 'thumbnail', :locals => { :dog => dog } %>
+  <% if ((index + 1) % 2 == 0) %>
+    <img id="ad" src="<%= asset_path('ad.jpg')%>">
+  <% end %>
+<% end %>
 <%= will_paginate @dogs %>
